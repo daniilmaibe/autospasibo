@@ -10,11 +10,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get car number from GET request
-$searchCarNumber = $_GET["searchCarNumber"];
-
-// Fetch reviews and average rating from database
-$sql = "SELECT *, AVG(rating) AS average_rating FROM reviews WHERE car_number='$searchCarNumber' ORDER BY id DESC LIMIT 10";
+// Fetch last 10 reviews from database
+$sql = "SELECT * FROM reviews ORDER BY id DESC LIMIT 10";
 $result = $conn->query($sql);
 $reviews = array();
 if ($result->num_rows > 0) {

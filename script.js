@@ -37,6 +37,61 @@ function getReviews() {
     xhr.send();
 }
 
+// Function to show last 10 reviews
+function showLast10Reviews() {
+    // Send AJAX request to get last 10 reviews from server
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "get_last_10_reviews.php", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.length > 0) {
+                const last10ReviewsDiv = document.getElementById("last10Reviews");
+                last10ReviewsDiv.innerHTML = "<h3>Last 10 Reviews</h3>";
+                for (let review of response) {
+                    last10ReviewsDiv.innerHTML += `<p>Car Number: ${review.car_number}, Rating: ${review.rating}, Review: ${review.review_text}</p>`;
+                }
+            }
+        }
+    };
+    xhr.send();
+}
+
+
+
+
+// Function to search reviews by car number
+function searchReviews() {
+    const searchCarNumber = document.getElementById("searchCarNumber").value;
+
+    // Send AJAX request to get reviews and average rating from server
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `get_reviews.php?searchCarNumber=${searchCarNumber}`, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.length > 0) {
+                showSearchResults(response);
+            } else {
+                alert(`No reviews found for car ${searchCarNumber}`);
+            }
+        }
+    };
+    xhr.send();
+}
+
+// Function to show search results
+function showSearchResults(reviews) {
+    const searchResultsDiv = document.getElementById("searchResults");
+    searchResultsDiv.innerHTML = `<h3>Search Results</h3>`;
+    for (let review of reviews) {
+        searchResultsDiv.innerHTML += `<p>Car Number: ${review.car_number}, Rating: ${review.rating}, Review: ${review.review_text}</p>`;
+    }
+    searchResultsDiv.innerHTML += `<p>Average Rating: ${parseFloat(review.average_rating).toFixed(2)}</p>`;
+}
+
+document.getElementById("searchButton").addEventListener("click", searchReviews);
+
 // Function to calculate average rating
 function calculateAverageRating(reviews) {
     if (reviews.length === 0) return 0;
@@ -44,19 +99,9 @@ function calculateAverageRating(reviews) {
     return totalRating / reviews.length;
 }
 
-// Function to search reviews by car number
-function searchReviews() {
-    const searchCarNumber = document.getElementById("searchCarNumber").value;
-    const filteredReviews = reviews.filter(review => review.car_number === searchCarNumber);
-    if (filteredReviews.length > 0) {
-        const averageRating = calculateAverageRating(filteredReviews);
-        alert(`Average rating for car ${searchCarNumber}: ${averageRating}`);
-    } else {
-        alert(`No reviews found for car ${searchCarNumber}`);
-    }
-}
 
-document.getElementById("searchButton").addEventListener("click", searchReviews);
+
+
 
 // Function to show reviews
 function showReviews() {
@@ -69,7 +114,11 @@ function showReviews() {
 
 document.getElementById("reviewForm").addEventListener("submit", addReview);
 
+
+
+
 // Load reviews when the page loads
 window.onload = function () {
     getReviews();
+    showLast10Reviews();
 };
