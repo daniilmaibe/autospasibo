@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Reviews</title>
+    <title>АвтоСпасибо - оставь отзыв на автомобиль</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h1>Car Reviews</h1>
+    <h1>АвтоСпасибо - оставь отзыв на автомобиль</h1>
     <form id="reviewForm">
-        <label for="carNumber">Car Number:</label>
+        <label for="carNumber">Номер автомобиля (гос. знак):</label>
         <input type="text" id="carNumber" required>
-        <label for="rating">Rating (1-5):</label>
-        <input type="number" id="rating" min="1" max="5" required>
-        <label for="reviewText">Review:</label>
+        <label for="rating">Оценка (1-10):</label>
+        <input type="number" id="rating" name="rating" min="1" max="10" required>
+        <label for="reviewText">Комментарий:</label>
         <textarea id="reviewText" required></textarea>
-        <button type="submit">Submit Review</button>
+        <button type="submit">Отправить</button>
     </form>
 
     
@@ -26,14 +26,16 @@
 
     <div id="last10Reviews">История</div>
 
-    <h2>Search Reviews</h2>
-    <label for="searchCarNumber">Search by Car Number:</label>
+    <h2>Поиск по номеру автомобиля</h2>
+    <label for="searchCarNumber">Искать по номеру:</label>
     <input type="text" id="searchCarNumber">
-    <button id="searchButton">Search</button>
+    <button id="searchButton">Искать</button>
     
     <div id="searchResults"></div>
 
     <script src="script.js"></script>
 </body>
+
+Поддержка: 
 
 </html>

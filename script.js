@@ -13,11 +13,11 @@ function addReview(event) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             const response = JSON.parse(xhr.responseText);
             if (response.success) {
-                alert("Review added successfully.");
+                alert("Отзыв успешно добавлен.");
                 reviews.push({ carNumber, rating, reviewText });
                 showReviews();
             } else {
-                alert("Failed to add review.");
+                alert("Отзыв не удалось добавить.");
             }
         }
     };
@@ -47,9 +47,9 @@ function showLast10Reviews() {
             const response = JSON.parse(xhr.responseText);
             if (response.length > 0) {
                 const last10ReviewsDiv = document.getElementById("last10Reviews");
-                last10ReviewsDiv.innerHTML = "<h3>Last 10 Reviews</h3>";
+                last10ReviewsDiv.innerHTML = "<h3>Последние 10 отзывов</h3>";
                 for (let review of response) {
-                    last10ReviewsDiv.innerHTML += `<p>Car Number: ${review.car_number}, Rating: ${review.rating}, Review: ${review.review_text}</p>`;
+                    last10ReviewsDiv.innerHTML += `<p>Номер авто: ${review.car_number}, Оценка: ${review.rating}, Комментарий: ${review.review_text}</p>`;
                 }
             }
         }
@@ -73,7 +73,7 @@ function searchReviews() {
             if (response.length > 0) {
                 showSearchResults(response);
             } else {
-                alert(`No reviews found for car ${searchCarNumber}`);
+                alert(`Не найдено автомобилей с номером ${searchCarNumber}`);
             }
         }
     };
@@ -83,11 +83,11 @@ function searchReviews() {
 // Function to show search results
 function showSearchResults(reviews) {
     const searchResultsDiv = document.getElementById("searchResults");
-    searchResultsDiv.innerHTML = `<h3>Search Results</h3>`;
+    searchResultsDiv.innerHTML = `<h3>Результаты поиска</h3>`;
     for (let review of reviews) {
-        searchResultsDiv.innerHTML += `<p>Car Number: ${review.car_number}, Rating: ${review.rating}, Review: ${review.review_text}</p>`;
+        searchResultsDiv.innerHTML += `<p>Номер авто: ${review.car_number}, Оценка: ${review.rating}, Комментарий: ${review.review_text}</p>`;
     }
-    searchResultsDiv.innerHTML += `<p>Average Rating: ${parseFloat(review.average_rating).toFixed(2)}</p>`;
+    searchResultsDiv.innerHTML += `<p>Средняя оценка: ${parseFloat(review.average_rating).toFixed(2)}</p>`;
 }
 
 document.getElementById("searchButton").addEventListener("click", searchReviews);
@@ -108,7 +108,7 @@ function showReviews() {
     const reviewsDiv = document.getElementById("reviews");
     reviewsDiv.innerHTML = "";
     for (let review of reviews) {
-        reviewsDiv.innerHTML += `<p>Car Number: ${review.car_number}, Rating: ${review.rating}, Review: ${review.review_text}</p>`;
+        reviewsDiv.innerHTML += `<p>Номер авто: ${review.car_number}, Оценка: ${review.rating}, Комментарий: ${review.review_text}</p>`;
     }
 }
 
