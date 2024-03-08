@@ -5,16 +5,6 @@ function addReview(event) {
     const rating = parseInt(document.getElementById("rating").value);
     const reviewText = document.getElementById("reviewText").value;
 
-    // Check if the car has already been reviewed or rated from this device
-    const carData = localStorage.getItem(carNumber);
-    if (carData) {
-        const parsedCarData = JSON.parse(carData);
-        if (parsedCarData.reviewed || parsedCarData.rated) {
-            alert("Вы уже оставили отзыв или оценку для этого автомобиля с этого устройства.");
-            return;
-        }
-    }
-
     // Send review data to server using AJAX
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "add_review.php", true);
@@ -26,8 +16,6 @@ function addReview(event) {
                 alert("Отзыв успешно добавлен.");
                 reviews.push({ carNumber, rating, reviewText });
                 showReviews();
-                // Save review status in localStorage to mark that this car has been reviewed or rated
-                localStorage.setItem(carNumber, JSON.stringify({ reviewed: true, rated: true }));
             } else {
                 alert("Отзыв не удалось добавить.");
             }
@@ -35,7 +23,6 @@ function addReview(event) {
     };
     xhr.send(`carNumber=${carNumber}&rating=${rating}&reviewText=${reviewText}`);
 }
-
 
 // Function to get reviews from server
 function getReviews() {
