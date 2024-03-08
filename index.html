@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Reviews</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Car Reviews</h1>
+    <form id="reviewForm">
+        <label for="carNumber">Car Number:</label>
+        <input type="text" id="carNumber" required>
+        <label for="rating">Rating (1-5):</label>
+        <input type="number" id="rating" min="1" max="5" required>
+        <label for="reviewText">Review:</label>
+        <textarea id="reviewText" required></textarea>
+        <button type="submit">Submit Review</button>
+    </form>
+
+    
+
+    <hr>
+    <h2>Search Reviews</h2>
+    <label for="searchCarNumber">Search by Car Number:</label>
+    <input type="text" id="searchCarNumber">
+    <button id="searchButton">Search</button>
+
+    <div id="reviews"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
