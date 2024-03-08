@@ -1,41 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>АвтоСпасибо - оставь отзыв на автомобиль</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <h1>АвтоСпасибо - оставь отзыв на автомобиль</h1>
-    <form id="reviewForm">
-        <label for="carNumber">Номер автомобиля (гос. знак):</label>
-        <input type="text" id="carNumber" required>
-        <label for="rating">Оценка (1-10):</label>
-        <input type="number" id="rating" name="rating" min="1" max="10" required>
-        <label for="reviewText">Комментарий:</label>
-        <textarea id="reviewText" required></textarea>
-        <button type="submit">Отправить</button>
-    </form>
-
+    <div class="header">
+        <h1>АвтоСпасибо - оставь отзыв на автомобиль</h1>
+    </div>
     
+    <div class="container">
+        <section class="form-section">
+            <h2>Оставьте отзыв</h2>
+            <form id="reviewForm">
+                <label for="carNumber">Номер автомобиля (гос. знак):</label>
+                <input type="text" id="carNumber" pattern="[А-Яа-я0-9]{1,10}" title="Введите номер автомобиля, используя только русские буквы и цифры. Максимальная длина - 10 символов." required>
+                <label for="rating">Оценка (1-10):</label>
+                <input type="number" id="rating" name="rating" min="1" max="10" required>
+                <label for="reviewText">Комментарий:</label>
+                <textarea id="reviewText" required></textarea>
+                <button type="submit">Отправить</button>
+            </form>
+        </section>
 
-    <hr>
+        <hr>
 
-    <div id="last10Reviews">История</div>
+        <section class="history-section">
+            <h2>История отзывов</h2>
+            <div id="last10Reviews">История</div>
+        </section>
 
-    <h2>Поиск по номеру автомобиля</h2>
-    <label for="searchCarNumber">Искать по номеру:</label>
-    <input type="text" id="searchCarNumber">
-    <button id="searchButton">Искать</button>
-    
-    <div id="searchResults"></div>
+        
+        <hr>
+
+        <section class="search-section">
+            <h2>Поиск по номеру автомобиля</h2>
+            <label for="searchCarNumber">Искать по номеру:</label>
+            <input type="text" id="searchCarNumber" pattern="[А-Яа-я0-9]{1,10}" title="Введите номер автомобиля, используя только русские буквы и цифры. Максимальная длина - 10 символов.">
+            <button id="searchButton">Искать</button>
+            <div id="searchResults"></div>
+        </section>
+
+        <hr>
+
+        <section id="rules" class="container">
+            <h2>Правила сайта</h2>
+            <ol>
+                <li>Уважайте других пользователей.</li>
+                <li>Не допускается использование нецензурных выражений и оскорблений.</li>
+                <li>Предоставляйте корректную и точную информацию.</li>
+                <li>Нельзя оставлять отзывы с намеренно ложной информацией.</li>
+                <li>Запрещено накручивать оценку автомобиля.</li>
+            </ol>
+        </section>
+    </div>
 
     <script src="script.js"></script>
 </body>
-
-Поддержка: 
-
 </html>
