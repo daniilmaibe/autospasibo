@@ -24,6 +24,9 @@ function addReview(event) {
     xhr.send(`carNumber=${carNumber}&rating=${rating}&reviewText=${reviewText}`);
 }
 
+
+
+
 // Function to get reviews from server
 function getReviews() {
     const xhr = new XMLHttpRequest();
@@ -114,7 +117,30 @@ function showReviews() {
 
 document.getElementById("reviewForm").addEventListener("submit", addReview);
 
+// Функция проверки на запрещенные слова
+function checkForForbiddenWords(text) {
+    const forbiddenWords = ["хуй", "бля", "ебан", "пизд", "шлюх", "заеб", "выеб", "хуе"];
+    for (let word of forbiddenWords) {
+        if (text.toLowerCase().includes(word)) {
+            return true;
+        }
+    }
+    return false;
+}
 
+// Функция проверки формы перед отправкой
+function validateForm(event) {
+    const carNumber = document.getElementById("carNumber").value;
+    const reviewText = document.getElementById("reviewText").value;
+
+    if (checkForForbiddenWords(carNumber) || checkForForbiddenWords(reviewText)) {
+        alert("Поле содержит запрещенные слова. Пожалуйста, удалите их.");
+        event.preventDefault();
+    }
+}
+
+// Добавляем прослушиватель события на форму
+document.getElementById("reviewForm").addEventListener("submit", validateForm);
 
 
 // Load reviews when the page loads
