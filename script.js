@@ -90,6 +90,7 @@ function showSearchResults(reviews) {
     for (let review of reviews) {
         searchResultsDiv.innerHTML += `<p>Номер авто: ${review.car_number}, Оценка: ${review.rating}, Комментарий: ${review.review_text}</p>`;
     }
+    review = reviews[0];
     searchResultsDiv.innerHTML += `<p>Средняя оценка: ${parseFloat(review.average_rating).toFixed(2)}</p>`;
 }
 
