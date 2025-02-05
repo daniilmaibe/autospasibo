@@ -2,6 +2,7 @@
     "name": "daniilmaibe/autospasibo",
     "description": "Super project for drivers",
     "type": "project",
+    "license": "proprietary",
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
