@@ -1,0 +1,88 @@
+---
+- hosts: webserver
+  vars_files:
+    - vars.yml
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name:
+          - nginx
+          - mysql-server
+          - php-fpm
+          - php-mysql
+          - git
+        state: present
+
+    - name: Install PyMySQL
+      apt:
+        name: python3-pymysql
+        state: present
+
+    - name: Start and enable MySQL service
+      service:
+        name: mysql
+        state: started
+        enabled: yes
+
+    - name: Start and enable PHP-FPM service
+      service:
+        name: php7.4-fpm
+        state: started
+        enabled: yes
+
+    - name: Start and enable Nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create MySQL database
+      community.mysql.mysql_db:
+        name: autospasibo
+        state: present
+        login_user: root
+        login_password: pass12345
+
+    - name: Create MySQL user
+      mysql_user:
+        name: root_mysql
+        password: pass12345
+        priv: "myapp_db.*:ALL"
+        state: present
+
+    - name: Deploy web application
+      git:
+        repo: https://github.com/daniilmaibe/autospasibo.git
+        dest: /var/www/autospasibo
+        version: main
+
+    - name: Set permissions for web directory
+      file:
+        path: /var/www/autospasibo
+        owner: www-data
+        group: www-data
+        recurse: yes
+
+    - name: Configure Nginx
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/sites-available/autospasibo
+      notify: Restart Nginx
+
+    - name: Enable Nginx configuration
+      file:
+        src: /etc/nginx/sites-available/autospasibo
+        dest: /etc/nginx/sites-enabled/autospasibo
+        state: link
+      notify: Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
