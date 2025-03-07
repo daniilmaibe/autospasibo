@@ -1,8 +1,8 @@
 <?php
 // Connect to database
 $servername = "localhost";
-$username = "root"; // Enter your MySQL username
-$password = ""; // Enter your MySQL password
+$username = "root_mysql"; // Enter your MySQL username
+$password = "12345"; // Enter your MySQL password
 $dbname = "autospasibo"; // Enter your database name
 
 
