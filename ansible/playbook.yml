@@ -45,13 +45,13 @@
       community.mysql.mysql_db:
         name: autospasibo
         state: present
-        login_user: root
-        login_password: pass12345
+        login_user: root_mysql
+        login_password: 12345
 
     - name: Create MySQL user
       mysql_user:
         name: root_mysql
-        password: pass12345
+        password: 12345
         priv: "myapp_db.*:ALL"
         state: present
 
